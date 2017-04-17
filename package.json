@@ -1,0 +1,26 @@
+{
+  "name": "gfbackend",
+  "version": "1.0.0",
+  "description": "hej",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "monk": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlperemil/gfbackend.git"
+  },
+  "author": "emil jönsson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karlperemil/gfbackend/issues"
+  },
+  "homepage": "https://github.com/karlperemil/gfbackend#readme"
+}
