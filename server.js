@@ -1,9 +1,13 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
+
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk(process.env.MONGODB_URI || 'localhost:27017/nodetest1');
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
-    req.db = db
+    req.db = db;
     next()
 });
 
