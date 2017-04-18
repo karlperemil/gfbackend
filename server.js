@@ -66,6 +66,7 @@ app.get('/gethighscore', function (req, res) {
   var collection = db.get('highscore');
   collection.find({},{},function(e,docs){
       docs = JSON.stringify(docs);
+      docs = "{ highscoreentries: "+ docs + "}";
       res.send(docs);
   });
 });
