@@ -64,7 +64,7 @@ app.post('/sendhighscore', function (req, res) {
 
 app.get('/gethighscore', function (req, res) {
   var collection = db.get('highscore');
-  collection.find({},{ limit : 5, sort : { highscore : 1 }},function(e,docs){
+  collection.find({},{ limit : 5, sort : { highscore : -1 }},function(e,docs){
       docs = JSON.stringify(docs);
       docs = '{"highscoreentries": '+ docs + '}';
       res.send(docs);
