@@ -3,13 +3,19 @@ var app = express();
 
 var mongo = require('mongodb');
 var monk = require('monk');
+var bodyParser = require('body-parser');
 var db = monk(process.env.MONGODB_URI || 'localhost:27017/nodetest1');
+
+process.env.PORT
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.db = db;
     next()
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -25,7 +31,6 @@ app.get('/',function(req,res){
 
 // respond with "hello world" when a GET request is made to the homepage
 app.post('/sendhighscore', function (req, res) {
-  res.send('hello world');
   var db = req.db;
   var level = req.body.level;
   var highscore = req.body.highscore;
@@ -64,3 +69,7 @@ app.get('/gethighscore', function (req, res) {
       res.send(docs);
   });
 });
+
+app.set('port', process.env.PORT || 3000);
+
+app.listen(app.get('port'));
