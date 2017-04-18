@@ -17,6 +17,10 @@ app.all('/', function(req, res, next) {
   next();
 });
 
+app.get('/',function(req,res){
+    res.send('are you really supposed to be here');
+});
+
 
 
 // respond with "hello world" when a GET request is made to the homepage
