@@ -79,7 +79,7 @@ function getKey(level,highscore,playername){
         console.log(i,playername.charCodeAt(i));
         finalVal += playername.charCodeAt(i);
     }
-    return finalVal;
+    return finalVal.toString();
 }
 
 app.get('/gethighscore', function (req, res) {
