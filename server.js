@@ -37,7 +37,9 @@ app.post('/sendhighscore', function (req, res) {
   var playername = req.body.playername;
   var key = req.body.key;
 
-  if(key !== level.substr(0,1) + highscore.substr(0,1) + playername.substr(0,1)){
+  var compareKey = getKey(level,highscore,playername);
+
+  if(key !== compareKey){
     res.send("oh no you didn't!" +" "+ level +" "+ highscore +" "+ playername +" "+ key);
     return;
   }
@@ -61,6 +63,23 @@ app.post('/sendhighscore', function (req, res) {
       }
   });
 })
+
+function getKey(level,highscore,playername){
+    var finalVal = 0;
+    for(var i = 0; i < level.length; i++){
+        console.log(i,level.charCodeAt(i));
+        finalVal += level.charCodeAt(i);
+    }
+    for(var i = 0; i < highscore.length; i++){
+        console.log(i,highscore.charCodeAt(i));
+        finalVal += highscore.charCodeAt(i);
+    }
+    for(var i = 0; i < playername.length; i++){
+        console.log(i,playername.charCodeAt(i));
+        finalVal += playername.charCodeAt(i);
+    }
+    return finalVal;
+}
 
 app.get('/gethighscore', function (req, res) {
   var collection = db.get('highscore');
