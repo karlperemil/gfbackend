@@ -38,7 +38,7 @@ app.post('/sendhighscore', function (req, res) {
   var key = req.body.key;
 
   var compareKey = getKey(level,highscore,playername);
-  console.log(key,comparekey);
+  console.log(key,compareKey);
 
   if(key !== compareKey){
     res.send("oh no you didn't!" +" "+ level +" "+ highscore +" "+ playername +" "+ key);
