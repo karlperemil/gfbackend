@@ -35,13 +35,14 @@ app.post('/sendhighscore', function (req, res) {
   var level = req.body.level;
   var highscore = req.body.highscore;
   var playername = req.body.playername;
+  var time = req.body.time;
   var key = req.body.key;
 
   var compareKey = getKey(level,highscore,playername);
   console.log(key,compareKey);
 
   if(key !== compareKey){
-    res.send("oh no you didn't!" +" "+ level +" "+ highscore +" "+ playername +" "+ key);
+    res.send("oh no you didn't!" +" "+ level +" "+ highscore +" "+ playername + " " + time +" "+ key);
     return;
   }
 
@@ -52,7 +53,8 @@ app.post('/sendhighscore', function (req, res) {
   collection.insert({
       "level" : level,
       "highscore" : highscore,
-      "playername" : playername
+      "playername" : playername,
+      "time" : time
   }, function (err, doc) {
       if (err) {
           // If it failed, return error
@@ -60,7 +62,7 @@ app.post('/sendhighscore', function (req, res) {
       }
       else {
           // And forward to success page
-          res.send("ok"+" "+ level+" "+highscore+" "+playername);
+          res.send("ok"+" "+ level+" "+highscore+" "+playername+" "+time);
       }
   });
 })
@@ -68,15 +70,12 @@ app.post('/sendhighscore', function (req, res) {
 function getKey(level,highscore,playername){
     var finalVal = 0;
     for(var i = 0; i < level.length; i++){
-        console.log(i,level.charCodeAt(i));
         finalVal += level.charCodeAt(i);
     }
     for(var i = 0; i < highscore.length; i++){
-        console.log(i,highscore.charCodeAt(i));
         finalVal += highscore.charCodeAt(i);
     }
     for(var i = 0; i < playername.length; i++){
-        console.log(i,playername.charCodeAt(i));
         finalVal += playername.charCodeAt(i);
     }
     return finalVal.toString();
@@ -84,7 +83,7 @@ function getKey(level,highscore,playername){
 
 app.get('/gethighscore', function (req, res) {
   var collection = db.get('highscore');
-  collection.find({},{ limit : 5, sort : { highscore : -1 }},function(e,docs){
+  collection.find({level:'1'},{ limit : 5, sort : { highscore : -1 }},function(e,docs){
       docs = JSON.stringify(docs);
       docs = '{"highscoreentries": '+ docs + '}';
       res.send(docs);
