@@ -81,9 +81,9 @@ function getKey(level,highscore,playername){
     return finalVal.toString();
 }
 
-app.get('/gethighscore', function (req, res) {
+app.get('/gethighscore/:level', function (req, res) {
   var collection = db.get('highscore');
-  collection.find({level:'1'},{ limit : 5, sort : { highscore : -1 }},function(e,docs){
+  collection.find({level:req.params.level},{ limit : 5, sort : { highscore : -1 }},function(e,docs){
       docs = JSON.stringify(docs);
       docs = '{"highscoreentries": '+ docs + '}';
       res.send(docs);
