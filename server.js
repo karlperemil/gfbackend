@@ -37,6 +37,7 @@ app.post('/sendhighscore', function (req, res) {
   var playername = req.body.playername;
   var time = req.body.time;
   var key = req.body.key;
+  var country = req.body.country;
 
   var compareKey = getKey(level,highscore,playername);
   console.log(key,compareKey);
@@ -54,7 +55,8 @@ app.post('/sendhighscore', function (req, res) {
       "level" : level,
       "highscore" : highscore,
       "playername" : playername,
-      "time" : time
+      "time" : time,
+      "country" : country
   }, function (err, doc) {
       if (err) {
           // If it failed, return error
