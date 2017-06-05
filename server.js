@@ -94,7 +94,7 @@ app.get('/gethighscore/:level/:country/:mode', function (req, res) {
     });
   }
   else {
-      collection.find({level:req.params.level, country: req.params.country},{ limit : 10, sort : { highscore : 1 }},function(e,docs){
+      collection.find({level:req.params.level, country: req.params.country},{ limit : 10, sort : { highscore : -1 }},function(e,docs){
         docs = JSON.stringify(docs);
         docs = '{"highscoreentries": '+ docs + '}';
         res.send(docs);
